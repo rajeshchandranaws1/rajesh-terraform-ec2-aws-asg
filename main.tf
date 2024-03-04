@@ -2,7 +2,6 @@ resource "aws_launch_template" "template" {
   name_prefix     = "test"
   image_id        = "ami-1a2b3c"
   instance_type   = "t2.micro"
-  security_groups = ["sg-12345678"]
 }
 
 resource "aws_autoscaling_group" "autoscale" {
@@ -13,7 +12,6 @@ resource "aws_autoscaling_group" "autoscale" {
   min_size              = 1
   health_check_type     = "EC2"
   termination_policies  = ["OldestInstance"]
-  vpc_zone_identifier   = ["subnet-12345678"]
 
   launch_template {
     id      = aws_launch_template.template.id
@@ -30,15 +28,15 @@ resource "aws_autoscaling_policy" "scale_policy" {
   cooldown               = 120
 }
 
-resource "aws_cloudwatch_metric_alarm" "scale_down" {
+resource "aws_cloudwatch_metric_alarm" "scale_up" {
   alarm_description   = "Monitors CPU utilization"
-  alarm_actions       = [aws_autoscaling_policy.scale_down.arn]
-  alarm_name          = "test_scale_down"
-  comparison_operator = "LessThanOrEqualToThreshold"
+  alarm_actions       = [aws_autoscaling_policy.scale_policy.arn]
+  alarm_name          = "test_scale_up"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
   namespace           = "AWS/EC2"
   metric_name         = "CPUUtilization"
-  threshold           = "25"
-  evaluation_periods  = "5"
+  threshold           = "50"
+  evaluation_periods  = "2"
   period              = "30"
   statistic           = "Average"
 
