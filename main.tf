@@ -36,8 +36,8 @@ resource "aws_cloudwatch_metric_alarm" "scale_up" {
   comparison_operator = "GreaterThanOrEqualToThreshold"
   namespace           = "AWS/EC2"
   metric_name         = "CPUUtilization"
-  threshold           = "50"
-  evaluation_periods  = "2"
+  threshold           = 50
+  evaluation_periods  = 2
   period              = "30"
   statistic           = "Average"
 
