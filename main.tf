@@ -7,7 +7,7 @@ resource "aws_launch_template" "template" {
 
 resource "aws_autoscaling_group" "autoscale" {
   name                  = "test-autoscaling-group"  
-  availability_zones    = ["us-east-1"]
+  availability_zones    = ["us-east-1b"]
   desired_capacity      = 1
   max_size              = 2
   min_size              = 1
