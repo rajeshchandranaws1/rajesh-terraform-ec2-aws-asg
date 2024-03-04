@@ -10,3 +10,4 @@ terraform {
 #STEP2: DEFINE THE REGION (N. Virginia)
 provider "aws" {
   region = "us-east-1"
+}
