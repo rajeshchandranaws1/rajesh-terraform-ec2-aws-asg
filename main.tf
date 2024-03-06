@@ -3,6 +3,13 @@ resource "aws_launch_template" "template" {
   image_id        = "ami-0440d3b780d96b29d"
   instance_type   = "t2.micro"
   key_name        = "kp-mar4"
+  tag_specifications {
+    resource_type = "instance"
+
+    tags = {
+      Name = "tf-ec2"
+    }
+  }
 }
 
 resource "aws_autoscaling_group" "autoscale" {
